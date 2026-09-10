@@ -1,0 +1,23 @@
+<header class="shell__header">
+  <div class="shell__brand">
+    <span class="shell__logo" aria-hidden="true">JS</span>
+    <div>
+      <h1>Task Board</h1>
+      <p>Angular 20 + Spring Boot 3 full-stack demo</p>
+    </div>
+  </div>
+
+  <nav class="shell__nav" aria-label="Main navigation">
+    <a routerLink="/tasks" routerLinkActive="is-active">Tasks</a>
+    <a routerLink="/about" routerLinkActive="is-active">About</a>
+  </nav>
+</header>
+
+<main class="shell__main">
+  <router-outlet />
+</main>
+
+<footer class="shell__footer">
+  <span>Jessica Sales — portfolio project</span>
+  <span>REST API on <code>:8081</code> · UI on <code>:4200</code></span>
+</footer>

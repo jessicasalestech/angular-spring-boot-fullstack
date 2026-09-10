@@ -1,0 +1,63 @@
+<section class="panel">
+  <h2>New task</h2>
+  <p class="muted">POST /api/tasks — validation runs on both sides.</p>
+
+  @if (error(); as message) {
+    <p class="alert alert--error" role="alert" data-testid="form-error">{{ message }}</p>
+  }
+
+  @if (success(); as message) {
+    <p class="alert alert--success" role="status" data-testid="form-success">{{ message }}</p>
+  }
+
+  <form #taskForm="ngForm" (ngSubmit)="submit(taskForm)" novalidate>
+    <div class="field">
+      <label for="title">Title *</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        required
+        maxlength="120"
+        [(ngModel)]="model.title"
+        #title="ngModel"
+        placeholder="e.g. Add pagination to the list"
+      />
+      @if (title.invalid && title.touched) {
+        <p class="field__error" data-testid="title-error">A title is required (max 120 characters).</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="3"
+        maxlength="1000"
+        [(ngModel)]="model.description"
+        placeholder="Optional details"
+      ></textarea>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" name="status" [(ngModel)]="model.status">
+          @for (status of statuses; track status) {
+            <option [value]="status">{{ status }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="dueDate">Due date</label>
+        <input id="dueDate" name="dueDate" type="date" [(ngModel)]="model.dueDate" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn--primary" [disabled]="submitting()">
+      {{ submitting() ? 'Saving…' : 'Create task' }}
+    </button>
+  </form>
+</section>

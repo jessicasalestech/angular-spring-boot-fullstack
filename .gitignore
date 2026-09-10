@@ -1,0 +1,23 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# --- Backend ---
+backend/target/
+
+# --- Frontend --- (frontend/.gitignore also covers these)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.tmp/
+
+# Environment (never commit real secrets)
+.env
+*.local

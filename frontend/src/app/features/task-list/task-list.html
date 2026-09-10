@@ -1,0 +1,77 @@
+<div class="task-page">
+  <section class="panel">
+    <header class="panel__header">
+      <div>
+        <h2>Tasks</h2>
+        <p class="muted">{{ tasks().length }} task(s) in the backlog</p>
+      </div>
+      <button type="button" class="btn btn--ghost" (click)="load()" [disabled]="loading()">
+        {{ loading() ? 'Loading…' : 'Refresh' }}
+      </button>
+    </header>
+
+    <nav class="filters" aria-label="Filter tasks by status">
+      <button
+        type="button"
+        class="chip"
+        [class.chip--active]="filter() === 'ALL'"
+        (click)="setFilter('ALL')"
+      >
+        All <span class="chip__count">{{ counts().all }}</span>
+      </button>
+      @for (status of statuses; track status) {
+        <button
+          type="button"
+          class="chip"
+          [class.chip--active]="filter() === status"
+          (click)="setFilter(status)"
+        >
+          {{ labels[status] }} <span class="chip__count">{{ counts()[status] }}</span>
+        </button>
+      }
+    </nav>
+
+    @if (error(); as message) {
+      <p class="alert alert--error" role="alert">{{ message }}</p>
+    }
+
+    @if (!loading() && visibleTasks().length === 0) {
+      <p class="empty" data-testid="empty-state">No tasks to show yet — create one below.</p>
+    }
+
+    <ul class="task-list">
+      @for (task of visibleTasks(); track task.id) {
+        <li class="task" [attr.data-status]="task.status" data-testid="task-item">
+          <div class="task__main">
+            <span class="badge" [class]="'badge--' + task.status">{{ labels[task.status] }}</span>
+            <h3 class="task__title">{{ task.title }}</h3>
+            @if (task.description) {
+              <p class="task__description">{{ task.description }}</p>
+            }
+            @if (task.dueDate) {
+              <p class="task__meta">Due {{ task.dueDate }}</p>
+            }
+          </div>
+
+          <div class="task__actions">
+            @if (task.status !== 'DONE') {
+              <button type="button" class="btn btn--ghost" (click)="advanceStatus(task)">
+                Advance
+              </button>
+            }
+            <button
+              type="button"
+              class="btn btn--danger"
+              (click)="remove(task)"
+              [attr.aria-label]="'Delete ' + task.title"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <app-task-form (created)="onTaskCreated($event)" />
+</div>
