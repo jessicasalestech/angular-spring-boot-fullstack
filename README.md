@@ -1,5 +1,7 @@
 # Task Board — Angular + Spring Boot Full-Stack
 
+[![English](https://img.shields.io/badge/English-blue?style=plastic&logo=openbadges&logoColor=white)](README.md) [![Português](https://img.shields.io/badge/Portugu%C3%AAs-green?style=plastic&logo=openbadges&logoColor=white)](README-pt-BR.md)
+
 [![Java](https://img.shields.io/badge/Java-21-orange)](https://adoptium.net/temurin/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-green)](https://spring.io/projects/spring-boot)
 [![Angular](https://img.shields.io/badge/Angular-20-red)](https://angular.dev)
